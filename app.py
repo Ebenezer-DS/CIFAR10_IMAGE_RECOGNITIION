@@ -35,7 +35,7 @@ if x_train is None or y_train is None:
 x_train = x_train / 255.0  # Direct normalization
 
 # Load CIFAR-10 test data (full test set)
-(x_train_cifar, y_train_cifar), (x_test, y_test) = cifar10.load_data()
+(_, _), (x_test, y_test) = cifar10.load_data()
 
 # Normalize x_test by dividing by 255 (accessing the correct data in the tuple)
 x_test = x_test / 255.0  # Access the image data and normalize
