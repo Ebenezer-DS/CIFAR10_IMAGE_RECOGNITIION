@@ -3,9 +3,9 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from tensorflow.keras.datasets import cifar10
 from PIL import Image
 import os
+from tensorflow.keras.datasets import cifar10
 
 # Function to load and merge the chunks for x_train
 def load_chunks(chunk_path, num_chunks, data_type='x_train'):
@@ -21,7 +21,7 @@ def load_chunks(chunk_path, num_chunks, data_type='x_train'):
     return np.concatenate(data, axis=0)
 
 # Path to the folder containing the chunks
-chunk_path = 'cifar10_data'
+chunk_path = 'cifar10'
 num_chunks = 4
 
 # Load CIFAR-10 training data (using chunks for x_train)
@@ -35,10 +35,10 @@ if x_train is None or y_train is None:
 x_train = x_train / 255.0  # Direct normalization
 
 # Load CIFAR-10 test data (full test set)
-(x_test, y_test) = cifar10.load_data()
+(x_train_cifar, y_train_cifar), (x_test, y_test) = cifar10.load_data()
 
 # Normalize x_test by dividing by 255 (accessing the correct data in the tuple)
-x_test = x_test[0] / 255.0  # Access the image data and normalize
+x_test = x_test / 255.0  # Access the image data and normalize
 
 # Define class names
 class_names = ['Airplane', 'Automobile', 'Bird', 'Cat', 'Deer', 'Dog', 'Frog', 'Horse', 'Ship', 'Truck']
