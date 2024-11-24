@@ -18,12 +18,12 @@ jobs:
 
       - name: Authenticate to Hugging Face
         env:
-          HUGGINGFACE_TOKEN: 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
+          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: huggingface-cli login --token $HUGGINGFACE_TOKEN
 
       - name: Push model to Hugging Face
         env:
-          HUGGINGFACE_TOKEN: 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
+          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
           huggingface-cli repo create Ebenevation/cifar10_image_recognition --organization Ebenevation --private --token $HUGGINGFACE_TOKEN || true
           huggingface-cli upload --repo-id Ebenevation/cifar10_image_recognition --token $HUGGINGFACE_TOKEN ./path/to/your/model_files
