@@ -11,25 +11,21 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Ensure code is checked out
+      uses: actions/checkout@v3
   
-    - name: Install Hugging Face Hub
+    - name: Install dependencies
       run: pip install huggingface_hub --upgrade
   
     - name: Login to Hugging Face
-      env:
-        HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
-      run: huggingface-cli login --token $HUGGINGFACE_TOKEN
+      run: huggingface-cli login --token ${{ secrets.HUGGINGFACE_TOKEN }}
   
-    - name: Push model to Hugging Face
-      env:
-        HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+    - name: Clone and push model to Hugging Face
       run: |
         git config --global user.email "159778812+Ebenezer-DS@users.noreply.github.com"
         git config --global user.name "Ebenezer-DS"
-        git clone https://$HUGGINGFACE_TOKEN@huggingface.co/Ebenevation/cifar10_image_recognition
+        git clone https://${{ secrets.HUGGINGFACE_TOKEN }}@huggingface.co/Ebenevation/cifar10_image_recognition
         cd cifar10_image_recognition
-        cp -r ../model_files/* .  # Adjust this path to match your model files
+        cp -r ../model_files/* .  # Adjust this to your local model folder
         git add .
         git commit -m "Upload model files"
         git push
