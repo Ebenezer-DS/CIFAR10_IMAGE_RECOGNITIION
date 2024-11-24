@@ -10,15 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Latest Hugging Face CLI
-      run: pip install --upgrade huggingface_hub
-
-    - name: Verify Hugging Face CLI
-      run: huggingface-cli --help
-
-    - name: Authenticate and Upload Model
+    - name: Checkout code
+      uses: actions/checkout@v3  # Ensure code is checked out
+  
+    - name: Install Hugging Face Hub
+      run: pip install huggingface_hub --upgrade
+  
+    - name: Login to Hugging Face
+      env:
+        HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+      run: huggingface-cli login --token $HUGGINGFACE_TOKEN
+  
+    - name: Push model to Hugging Face
       env:
         HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
       run: |
-        huggingface-cli login --token $HUGGINGFACE_TOKEN
-        huggingface-cli repo upload --repo-id Ebenevation/cifar10_image_recognition ./model_files
+        git config --global user.email "ebenelomo@outlook.com"
+        git config --global user.name "Ebenezer-DS"
+        git clone https://$HUGGINGFACE_TOKEN@huggingface.co/Ebenevation/cifar10_image_recognition
+        cd cifar10_image_recognition
+        cp -r ../model_files/* .  # Adjust this path to match your model files
+        git add .
+        git commit -m "Upload model files"
+        git push
