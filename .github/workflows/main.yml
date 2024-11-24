@@ -10,25 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Install Latest Hugging Face CLI
+      run: pip install --upgrade huggingface_hub
 
-      - name: Debug - Check Environment
-        run: |
-          echo "Working Directory:"
-          pwd
-          echo "Available Files:"
-          ls -al
+    - name: Verify Hugging Face CLI
+      run: huggingface-cli --help
 
-      - name: Install Latest Hugging Face CLI
-        run: pip install --upgrade huggingface_hub
-
-      - name: Verify Hugging Face CLI
-        run: huggingface-cli --help
-
-      - name: Authenticate and Upload Model
-        env:
-          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
-        run: |
-          huggingface-cli login --token $HUGGINGFACE_TOKEN
-          huggingface-cli repo upload --repo-id Ebenevation/cifar10_image_recognition ./model_files
+    - name: Authenticate and Upload Model
+      env:
+        HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+      run: |
+        huggingface-cli login --token $HUGGINGFACE_TOKEN
+        huggingface-cli repo upload --repo-id Ebenevation/cifar10_image_recognition ./model_files
