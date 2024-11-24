@@ -8,22 +8,27 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug - Check Environment
+        run: |
+          echo "Working Directory:"
+          pwd
+          echo "Available Files:"
+          ls -al
+
       - name: Install Hugging Face CLI
         run: pip install huggingface_hub
 
-      - name: Authenticate to Hugging Face
-        env:
-          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
-        run: huggingface-cli login --token $HUGGINGFACE_TOKEN
+      - name: Verify Hugging Face CLI Installation
+        run: huggingface-cli --version
 
-      - name: Push model to Hugging Face
+      - name: Upload model to Hugging Face
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
-          huggingface-cli repo create Ebenevation/cifar10_image_recognition --organization Ebenevation --private --token $HUGGINGFACE_TOKEN || true
-          huggingface-cli upload --repo-id Ebenevation/cifar10_image_recognition --token $HUGGINGFACE_TOKEN ./path/to/your/model_files
+          huggingface-cli login --token $HUGGINGFACE_TOKEN
+          huggingface-cli repo upload --repo-id Ebenevation/cifar10_image_recognition ./model_files
