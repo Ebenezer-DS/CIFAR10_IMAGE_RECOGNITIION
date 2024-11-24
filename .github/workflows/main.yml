@@ -21,7 +21,7 @@ jobs:
   
     - name: Clone and push model to Hugging Face
       run: |
-        git config --global user.email "159778812+Ebenezer-DS@users.noreply.github.com"
+        git config --global user.email "ebenelomo01@gmail.com"
         git config --global user.name "Ebenezer-DS"
         git clone https://${{ secrets.HUGGINGFACE_TOKEN }}@huggingface.co/Ebenevation/cifar10_image_recognition
         cd cifar10_image_recognition
