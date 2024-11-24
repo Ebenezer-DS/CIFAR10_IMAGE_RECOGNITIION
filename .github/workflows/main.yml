@@ -20,13 +20,13 @@ jobs:
           echo "Available Files:"
           ls -al
 
-      - name: Install Hugging Face CLI
-        run: pip install huggingface_hub
+      - name: Install Latest Hugging Face CLI
+        run: pip install --upgrade huggingface_hub
 
-      - name: Verify Hugging Face CLI Installation
-        run: huggingface-cli --version
+      - name: Verify Hugging Face CLI
+        run: huggingface-cli --help
 
-      - name: Upload model to Hugging Face
+      - name: Authenticate and Upload Model
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: |
