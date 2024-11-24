@@ -1,0 +1,29 @@
+name: Deploy Model to Hugging Face
+
+on:
+  push:
+    branches:
+      - master  # Trigger deployment on push to the master branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Hugging Face CLI
+        run: pip install huggingface_hub
+
+      - name: Authenticate to Hugging Face
+        env:
+          HUGGINGFACE_TOKEN: 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
+        run: huggingface-cli login --token $HUGGINGFACE_TOKEN
+
+      - name: Push model to Hugging Face
+        env:
+          HUGGINGFACE_TOKEN: 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
+        run: |
+          huggingface-cli repo create Ebenevation/cifar10_image_recognition --organization Ebenevation --private --token $HUGGINGFACE_TOKEN || true
+          huggingface-cli upload --repo-id Ebenevation/cifar10_image_recognition --token $HUGGINGFACE_TOKEN ./path/to/your/model_files
