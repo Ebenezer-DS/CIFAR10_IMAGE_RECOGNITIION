@@ -18,10 +18,8 @@ jobs:
       - name: Login to Hugging Face
         run: huggingface-cli login --token ${{ secrets.HUGGINGFACE_TOKEN }}
 
-      - name: Clone Hugging Face Repository
-        run: |
-          git clone https://${{ secrets.HUGGINGFACE_TOKEN }}@huggingface.co/Ebenevation/cifar10_image_recognition.git
-          cd cifar10_image_recognition
+      - name: Clone repository
+        run: git clone https://huggingface.co/datasets/Ebenevation/cifar10_image_recognition
 
       - name: Deploy model to Hugging Face
         run: |
