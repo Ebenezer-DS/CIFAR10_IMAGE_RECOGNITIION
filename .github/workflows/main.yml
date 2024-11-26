@@ -22,7 +22,7 @@ jobs:
         run: |
           git config --global user.email "ebenelomo01@gmail.com"
           git config --global user.name "Ebenezer-DS"
-          huggingface-cli repo create Ebenevation/cifar10_image_recognition
+          huggingface-cli repo create Ebenevation/cifar10_image_recognition --yes
           cp -r CIFAR10_IMAGE_RECOGNITIION/* cifar10_image_recognition/
           cd cifar10_image_recognition
           git add .
