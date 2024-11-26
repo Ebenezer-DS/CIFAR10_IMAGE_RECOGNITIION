@@ -18,15 +18,13 @@ jobs:
       - name: Login to Hugging Face
         run: huggingface-cli login --token ${{ secrets.HUGGINGFACE_TOKEN }}
 
-      - name: Clone repository
-        run: git clone https://huggingface.co/datasets/Ebenevation/cifar10_image_recognition
-
       - name: Deploy model to Hugging Face
         run: |
           git config --global user.email "ebenelomo01@gmail.com"
           git config --global user.name "Ebenezer-DS"
+          huggingface-cli repo create Ebenevation/cifar10_image_recognition
+          cp -r CIFAR10_IMAGE_RECOGNITIION/* cifar10_image_recognition/
           cd cifar10_image_recognition
-          cp -r ../CIFAR10_IMAGE_RECOGNITIION/* .
           git add .
           git commit -m "Upload model files"
           git push
