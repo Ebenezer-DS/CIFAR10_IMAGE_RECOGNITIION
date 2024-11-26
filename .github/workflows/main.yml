@@ -22,9 +22,9 @@ jobs:
         run: |
           git config --global user.email "ebenelomo01@gmail.com"
           git config --global user.name "Ebenezer-DS"
-          huggingface-cli repo create Ebenevation/cifar10_image_recognition --yes
-          cp -r CIFAR10_IMAGE_RECOGNITIION/* cifar10_image_recognition/
-          cd cifar10_image_recognition
+          cd CIFAR10_IMAGE_RECOGNITIION
+          git init
           git add .
           git commit -m "Upload model files"
-          git push
+          git remote add origin https://huggingface.co/datasets/Ebenevation/cifar10_image_recognition
+          git push -u origin master
