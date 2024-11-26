@@ -26,7 +26,7 @@ jobs:
           git config --global user.email "ebenelomo01@gmail.com"
           git config --global user.name "Ebenezer-DS"
           cd cifar10_image_recognition
-          cp -r ../model_files/* .
+          cp -r ../Image_recognition_with_cifar-10/* .
           git add .
           git commit -m "Upload model files"
           git push
