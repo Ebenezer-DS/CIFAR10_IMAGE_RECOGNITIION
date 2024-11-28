@@ -3,7 +3,7 @@ name: Deploy Model to Hugging Face
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -19,7 +19,15 @@ jobs:
         run: huggingface-cli login --token ${{ secrets.HUGGINGFACE_TOKEN }}
 
       - name: Deploy model to Hugging Face
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+          REPO_USERNAME: Ebenezer-DS
         run: |
           git config --global user.email "ebenelomo01@gmail.com"
           git config --global user.name "Ebenezer-DS"
-          git push -f -u origin master
+          git remote set-url origin https://${REPO_USERNAME}:${REPO_TOKEN}@github.com/${REPO_USERNAME}/CIFAR10_IMAGE_RECOGNITIION.git
+          git push -f -u origin main
+
+      - name: Verify files on Hugging Face
+        run: |
+          curl -s https://huggingface.co/Ebenevation/cifar10_image_recognition/resolve/main/
