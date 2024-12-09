@@ -1,0 +1,26 @@
+
+name: Deploy Model to Hugging Face
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: pip install huggingface_hub --upgrade
+
+      - name: Login to Hugging Face
+        run: huggingface-cli login --token ${{ secrets.HUGGINGFACE_TOKEN }}
+
+      - name: Deploy model to Hugging Face
+        run: |
+          git config --global user.email "ebenelomo01@gmail.com"
+          git config --global user.name "Ebenezer-DS"
+          git push -f -u origin master
